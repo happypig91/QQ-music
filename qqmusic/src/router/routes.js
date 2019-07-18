@@ -1,0 +1,42 @@
+export const routes=[
+    {
+        path:'/',
+        redirect:'/music/rank'
+    },
+    {
+        path:'/login',
+        autorization:false,
+        component:()=>import('@/containers/login')
+    },
+    {
+        path:'/registry',
+        autorization:false,
+        component:()=>import('../containers/registry')
+    },
+    {
+        path:'/music',
+        component:()=>import('../containers/music'),
+        redirect:'/toplist',
+        children:[
+            {
+                path:'/music/rank',
+                component:()=>import('../containers/music/rank')
+            },
+            {
+                path:'/music/search',
+                component:()=>import('../containers/music/search')
+            },
+            {
+                path:'/music/toplist',
+                meta:{
+                    autorization:true
+                  },
+                component:()=>import('../containers/music/toplist'),
+            }
+        ]
+    },
+    {
+        path: '*',
+        component: () => import('@/containers/lose/404.vue')
+    },
+]
